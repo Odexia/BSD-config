@@ -43,12 +43,27 @@ echo "====================================="
 echo "= Installing XFCE AND CORE UTILS... ="
 echo "====================================="
 echo ""
-pkg install -y xorg xfce4 xfce4-pulseaudio-plugin thunar-archive-plugin xfce4-taskmanager mixer mixertui
+pkg install -y xorg sddm xfce xfce4-pulseaudio-plugin xfce4-taskmanager
+pkg install -y thunar-archive-plugin mixer mixertui networkmgr
+
+## INSTALLS BASE DESKTOP AND CORE UTILS
+echo "=============================="
+echo "= Installing NVIDIA UTILS... ="
+echo "=============================="
+echo ""
+pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
+
+## INSTALLS MORE UTILS
+echo "============================"
+echo "= Installing MORE UTILS... ="
+echo "============================"
+echo ""
+pkg install -y vlc firefox vscode suyimazu linux-steam-utils
 
 
-pkg install -y nano sudo wget htop slim  xarchiver unzip 
-pkg install -y gnome-keyring xfce4-screenshooter-plugin shotwell atril-lite gnome-font-viewer vlc qjackctl  
-pkg install -y baobab networkmgr v4l-utils v4l_compat webcamd pwcview sctd brut clamtk filezilla vscode firefox deadbeef
+pkg install -y nano sudo wget htop xarchiver unzip 
+pkg install -y gnome-keyring xfce4-screenshooter-plugin shotwell atril-lite gnome-font-viewer qjackctl  
+pkg install -y baobab v4l-utils v4l_compat webcamd pwcview sctd brut deadbeef
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
 echo ""
