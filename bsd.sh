@@ -46,12 +46,39 @@ echo ""
 pkg install -y xorg sddm xfce xfce4-pulseaudio-plugin xfce4-taskmanager
 pkg install -y thunar-archive-plugin mixer mixertui networkmgr
 
+## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
+cd
+touch .xinitrc
+echo 'exec xfce4-session' >> .xinitrc
+echo ""
+echo ; read -p "Want to enable XFCE for a regular user? (yes/no): " X;
+echo ""
+if [ "$X" = "yes" ]
+then
+    echo ; read -p "For what user? " user;
+    touch /usr/home/$user/.xinitrc
+    echo 'exec xfce4-session' >> /usr/home/$user/.xinitrc
+    echo ""
+    echo "$user enabled"
+else fi
+
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "=============================="
 echo "= Installing NVIDIA UTILS... ="
 echo "=============================="
 echo ""
 pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
+nvidia-xconfig
+
+## ENABLES LINUX COMPAT LAYER
+echo "=================================="
+echo "= Enabling Linux compat layer... ="
+echo "=================================="
+echo ""
+kldload linux.ko
+sysrc linux_enable="YES"
+echo ""
+
 
 ## INSTALLS MORE UTILS
 echo "============================"
@@ -74,29 +101,18 @@ sysrc dsbmd_enable=YES
 echo ""
 
 ## ENABLES BASIC SYSTEM SERVICES
-echo "Enabling basic services"
+echo "==================================="
+echo "= Enabling basic services rc.conf ="
+echo "==================================="
+echo ""
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
-sysrc slim_enable="YES"
+sysrc sddm_enable="YES"
 sysrc update_motd="NO"
 sysrc rc_startmsgs="NO"
 echo ""
 
-## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
-cd
-touch .xinitrc
-echo 'exec xfce4-session' >> .xinitrc
-echo ""
-echo ; read -p "Want to enable XFCE for a regular user? (yes/no): " X;
-echo ""
-if [ "$X" = "yes" ]
-then
-    echo ; read -p "For what user? " user;
-    touch /usr/home/$user/.xinitrc
-    echo 'exec xfce4-session' >> /usr/home/$user/.xinitrc
-    echo ""
-    echo "$user enabled"
-else fi
+
 
 ## CONFIGURES AUTOMOUNT FOR THE REGULAR DESKTOP USER
 touch /usr/local/etc/automount.conf
@@ -116,11 +132,11 @@ echo ""
 ## ADDS USER TO CORE GROUPS
 echo "Adding $user to video/realtime/wheel/operator groups"
 pw usermod $user -G video
-pw usermod $user -G realtime
+#pw usermod $user -G realtime
 pw usermod $user -G wheel
 pw usermod $user -G operator
 pw usermod $user -G network
-pw usermod $user -G webcamd
+#pw usermod $user -G webcamd
 echo ""
 
 ## ADDS USER TO SUDOERS
@@ -128,28 +144,6 @@ echo "Adding $user to sudo"
 echo "$user ALL=(ALL:ALL) ALL" >> /usr/local/etc/sudoers
 echo ""
 
-## ENABLES LINUX COMPAT LAYER
-echo "Enabling Linux compat layer..."
-echo ""
-kldload linux.ko
-sysrc linux_enable="YES"
-echo ""
-
-## COMPILE AND INSTALL LATEST NVIDIA DRIVERS FOR MODERN CARDS (GTX 1*** / RTX Series)
-## Please, change /usr/ports/x11/nvidia-driver to /usr/ports/x11/nvidia-driver-470 or nvidia-driver-390 if you use GeForce GT or Titan series card.
-## If you're using a legacy Nvidia GeForce card please use nvidia-driver-304 instead
-echo "Compiling Nvidia drivers..."
-echo ""
-cd /usr/ports/x11/nvidia-driver
-make install clean BATCH=yes
-cd /usr/ports/x11/nvidia-settings
-make install clean BATCH=yes
-cd /usr/ports/x11/nvidia-xconfig
-make install clean BATCH=yes
-nvidia-xconfig
-echo ""
-echo "Nvidia drivers compiled"
-echo ""
 
 ## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
 echo "Optimizing system parameters and firewall..."
@@ -201,8 +195,9 @@ sysrc jackd_args="-r -doss -r48000 -p512 -n1 -w16 \
 echo ""
 
 ## UPDATES CPU MICROCODE
-echo "Updating CPU microcode..."
-echo ""
+echo "============================="
+echo "= Updating CPU microcode... ="
+echo "============================="
 pkg install -y devcpu-data
 sysrc microcode_update_enable="YES"
 service microcode_update start
@@ -211,14 +206,16 @@ echo "Microcode updated"
 echo ""
 
 ## CLEAN CACHES AND AUTOREMOVES UNNECESARY FILES
-echo "Cleaning system..."
-echo ""
+echo "======================"
+echo "= Cleaning system... ="
+echo "======================"
 pkg clean -y
 pkg autoremove -y
 echo ""
 
-## DONE, PLEASE RESTART
-echo "Installation done"
-echo "Please, check now /boot/loader.conf and /etc/sysctl.conf if you need to make some changes"
-echo "Don't forget to reboot your system after that"
-echo "BSD-XFCE by Wamphyre :)"
+## DONE, REBOOT
+echo "===================================="
+echo "= Installation done - Reboot in 5s ="
+echo "===================================="
+sleep 5
+reboot
