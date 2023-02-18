@@ -11,7 +11,8 @@ echo "=============================="
 echo "= Welcome to BSD base script ="
 echo "=============================="
 echo ""
-sleep 3
+echo ; read -p "For what user ? " user;
+echo ; read -p "Desktop or laptop ? (D/L) " device;
 
 ## CHANGE FreeBSD REPOS TO LATEST
 sed -i '' 's/quarterly/latest/g' /etc/pkg/FreeBSD.conf
@@ -51,17 +52,10 @@ pkg install -y thunar-archive-plugin mixer mixertui networkmgr
 cd
 touch .xinitrc
 echo 'exec xfce4-session' >> .xinitrc
+
+touch /usr/home/$user/.xinitrc
+echo 'exec xfce4-session' >> /usr/home/$user/.xinitrc
 echo ""
-echo ; read -p "Want to enable XFCE for a regular user? (yes/no): " X;
-echo ""
-if [ "$X" = "yes" ]
-then
-    echo ; read -p "For what user? " user;
-    touch /usr/home/$user/.xinitrc
-    echo 'exec xfce4-session' >> /usr/home/$user/.xinitrc
-    echo ""
-    echo "$user enabled"
-else fi
 
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
@@ -203,9 +197,7 @@ echo "============================="
 pkg install -y devcpu-data
 sysrc microcode_update_enable="YES"
 service microcode_update start
-echo ""
-echo "Microcode updated"
-echo ""
+
 
 ## CLEAN CACHES AND AUTOREMOVES UNNECESARY FILES
 echo "======================"
@@ -215,14 +207,11 @@ pkg clean -y
 pkg autoremove -y
 echo ""
 
-
-echo "================================"
-echo "= Configuration for laptop ... ="
-echo "================================"
-echo ; read -p "Want to enable laptop optimization? (yes/no): " Y;
-echo ""
-if [ "$Y" = "yes" ]
+if [ "$device" = "L" ]
 then
+    echo "================================"
+    echo "= Configuration for laptop ... ="
+    echo "================================"
     pkg install -y webcamd pwcview qjackctl
     pw groupmod webcamd -m $user
     echo "perm    /dev/video0     0666" >> /etc/devfs.conf
