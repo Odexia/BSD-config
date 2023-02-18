@@ -138,6 +138,7 @@ echo "==================================="
 echo "= Enabling basic services rc.conf ="
 echo "==================================="
 echo ""
+sysrc zfs_enable="YES"
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
 sysrc sddm_enable="YES" #Login manager
