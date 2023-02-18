@@ -166,17 +166,17 @@ echo ""
 
 
 ## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
-echo "Optimizing system parameters and firewall..."
-echo ""
-mv /etc/sysctl.conf /etc/sysctl.conf.bk
-mv /boot/loader.conf /boot/loader.conf.bk
-mv /etc/login.conf /etc/login.conf.bk
-cd /etc/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/sysctl.conf
+#echo "Optimizing system parameters and firewall..."
+#echo ""
+#mv /etc/sysctl.conf /etc/sysctl.conf.bk
+#mv /boot/loader.conf /boot/loader.conf.bk
+#mv /etc/login.conf /etc/login.conf.bk
+#cd /etc/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/sysctl.conf
 #fetch https://raw.githubusercontent.com/Wamphyre/BSD-XFCE/main/login.conf
-fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/devfs.rules
-cd /boot/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/loader.conf
-sysrc devfs_system_ruleset="desktop"
-cd
+#fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/devfs.rules
+#cd /boot/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/loader.conf
+#sysrc devfs_system_ruleset="desktop"
+#cd
 
 
 ## Initializing FW
