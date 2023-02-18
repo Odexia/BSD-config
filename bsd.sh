@@ -7,9 +7,9 @@ test $? -eq 0 || exit 1 "NEED TO BE ROOT TO RUN THIS"
 
 
 #Start message
-echo "==================================="
-echo "= Welcome to BSD-XFCE base script ="
-echo "==================================="
+echo "=============================="
+echo "= Welcome to BSD base script ="
+echo "=============================="
 echo ""
 sleep 3
 
