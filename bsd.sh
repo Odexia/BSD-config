@@ -2,6 +2,9 @@
 #xfce_desktop post install FreeBSD vanilla
 #Version 1.0
 
+## Check hyprland for WM
+
+
 #Check ROOT
 test $? -eq 0 || exit 1 "NEED TO BE ROOT TO RUN THIS"
 
@@ -81,7 +84,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y vlc firefox vscode suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd sudo wget atril-lite   
+pkg install -y vlc firefox keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd sudo wget atril-lite   
 
 
 
