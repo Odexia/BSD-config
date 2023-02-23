@@ -27,37 +27,21 @@ echo "========================="
 pkg update && pkg upgrade -y
 echo ""
 
-## FETCH FreeBSD PORTS
-echo "============================="
-echo "= Downloading Ports tree... ="
-echo "============================="
-echo ""
-portsnap fetch auto
-echo ""
-
-## COMPILE CPU OPTIMIZED APPLICATIONS
-## Please, change MAKE_JOBS_NUMBER?=16 by your needed CPU cores
-#touch /etc/make.conf
-#echo "CPUTYPE?=native" >> /etc/make.conf
-#echo "MAKE_JOBS_NUMBER?=16" >> /etc/make.conf
-#echo "OPTIONS_SET=OPTIMIZED_CFLAGS CPUFLAGS" >> /etc/make.conf
-
-
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "====================================="
-echo "= Installing XFCE AND CORE UTILS... ="
+echo "= Installing i3 AND CORE UTILS... ="
 echo "====================================="
 echo ""
-pkg install -y xorg sddm xfce xfce4-pulseaudio-plugin xfce4-taskmanager
-pkg install -y thunar-archive-plugin mixer mixertui networkmgr
+pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen
+pkg install -y thunar-archive-plugin mixer mixertui networkmgr sudo
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
-echo 'exec xfce4-session' >> .xinitrc
+echo 'exec i3' >> .xinitrc
 
 touch /usr/home/$user/.xinitrc
-echo 'exec xfce4-session' >> /usr/home/$user/.xinitrc
+echo 'exec i3' >> /usr/home/$user/.xinitrc
 echo ""
 
 
@@ -84,7 +68,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y vlc firefox keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd sudo wget atril-lite   
+pkg install -y vlc firefox keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite   
 
 
 
