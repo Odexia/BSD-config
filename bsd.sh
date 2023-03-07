@@ -32,7 +32,7 @@ echo "====================================="
 echo "= Installing i3 AND CORE UTILS... ="
 echo "====================================="
 echo ""
-pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen
+pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen thunar
 pkg install -y thunar-archive-plugin mixer mixertui networkmgr sudo
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
@@ -85,6 +85,20 @@ echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
 echo "USER=$user" >> /usr/local/etc/automount.conf
 echo "FM='thunar'" >> /usr/local/etc/automount.conf
 echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
+
+## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
+#echo "Optimizing system parameters and firewall..."
+#echo ""
+#mv /etc/sysctl.conf /etc/sysctl.conf.bk
+#mv /boot/loader.conf /boot/loader.conf.bk
+#mv /etc/login.conf /etc/login.conf.bk
+#cd /etc/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/sysctl.conf
+#fetch https://raw.githubusercontent.com/Wamphyre/BSD-XFCE/main/login.conf
+#fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/devfs.rules
+#cd /boot/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/loader.conf
+#sysrc devfs_system_ruleset="desktop"
+#cd
+
 
 ## SPECIAL PERMISSIONS FOR USB DRIVES AND WEBCAM
 echo "perm    /dev/da0        0666" >> /etc/devfs.conf
@@ -145,20 +159,6 @@ sysrc sendmail_outbound_enable="NO"
 sysrc sendmail_submit_enable="NO"
 echo ""
 
-
-
-## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
-#echo "Optimizing system parameters and firewall..."
-#echo ""
-#mv /etc/sysctl.conf /etc/sysctl.conf.bk
-#mv /boot/loader.conf /boot/loader.conf.bk
-#mv /etc/login.conf /etc/login.conf.bk
-#cd /etc/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/sysctl.conf
-#fetch https://raw.githubusercontent.com/Wamphyre/BSD-XFCE/main/login.conf
-#fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/devfs.rules
-#cd /boot/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/loader.conf
-#sysrc devfs_system_ruleset="desktop"
-#cd
 
 
 ## Initializing FW
