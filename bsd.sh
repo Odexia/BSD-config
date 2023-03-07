@@ -1,10 +1,5 @@
 #!/bin/bash
-#xfce_desktop post install FreeBSD vanilla
-#Version 1.0
-
-## Check hyprland for WM
-
-
+#Install desktop
 #Check ROOT
 test $? -eq 0 || exit 1 "NEED TO BE ROOT TO RUN THIS"
 
@@ -20,6 +15,7 @@ echo ; read -p "Desktop or laptop ? (D/L) " device;
 ## CHANGE FreeBSD REPOS TO LATEST
 sed -i '' 's/quarterly/latest/g' /etc/pkg/FreeBSD.conf
 
+
 ## REBUILD AND UPDATE PKG DATABASE 
 echo "========================="
 echo "= Upgrading packages... ="
@@ -27,9 +23,10 @@ echo "========================="
 pkg update && pkg upgrade -y
 echo ""
 
+
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "====================================="
-echo "= Installing i3 AND CORE UTILS... ="
+echo "=  Installing i3 AND CORE UTILS...  ="
 echo "====================================="
 echo ""
 pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen thunar
@@ -69,7 +66,6 @@ echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
 pkg install -y vlc firefox keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite   
-
 
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -147,6 +143,7 @@ sysrc syslogd_flags="-ss"
 sysrc dumpdev="NO"
 echo ""
 
+
 ## CONFIGURES MORE CORE SYSTEM SERVICES
 echo "=========================================="
 echo "= Enabling additional system services... ="
@@ -158,7 +155,6 @@ sysrc sendmail_msp_queue_enable="NO"
 sysrc sendmail_outbound_enable="NO"
 sysrc sendmail_submit_enable="NO"
 echo ""
-
 
 
 ## Initializing FW
@@ -174,7 +170,6 @@ sysrc pf_flags=""
 sysrc pflog_enable="YES"
 sysrc pflog_logfile="/var/log/pflog"
 sysrc pflog_flags=""
-
 
 
 ## UPDATES CPU MICROCODE
@@ -193,6 +188,7 @@ echo "======================"
 pkg clean -y
 pkg autoremove -y
 echo ""
+
 
 if [ "$device" = "L" ]
 then
