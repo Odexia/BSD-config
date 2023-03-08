@@ -29,8 +29,8 @@ echo "====================================="
 echo "=  Installing i3 AND CORE UTILS...  ="
 echo "====================================="
 echo ""
-pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen thunar
-pkg install -y thunar-archive-plugin mixer mixertui networkmgr sudo
+pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen thunar picom
+pkg install -y thunar-archive-plugin pulseaudio networkmgr sudo
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
@@ -65,7 +65,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y vlc firefox keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite   
+pkg install -y vlc firefox-esr keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite   
 
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
