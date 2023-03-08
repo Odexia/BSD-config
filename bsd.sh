@@ -25,20 +25,21 @@ echo ""
 
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
-echo "====================================="
-echo "=  Installing i3 AND CORE UTILS...  ="
-echo "====================================="
+echo "======================================"
+echo "=  Installing KDE AND CORE UTILS...  ="
+echo "======================================"
 echo ""
-pkg install -y xorg arandr sddm i3 i3lock rofi nitrogen thunar picom
-pkg install -y thunar-archive-plugin pulseaudio networkmgr sudo
+pkg install -y xorg arandr sddm plasma5-plasma-desktop plasma5-sddm-kcm sudo
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
-echo 'exec i3' >> .xinitrc
+echo 'setxkbmap fr' >> .xinitrc
+echo 'exec ck-launch-session startplasma-x11' >> .xinitrc
 
 touch /usr/home/$user/.xinitrc
-echo 'exec i3' >> /usr/home/$user/.xinitrc
+echo 'setxkbmap fr' >> /usr/home/$user/.xinitrc
+echo 'exec ck-launch-session startplasma-x11' >> /usr/home/$user/.xinitrc
 echo ""
 
 
@@ -69,18 +70,18 @@ pkg install -y vlc firefox-esr keyd suyimazu linux-steam-utils htop xarchiver 7-
 
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
-echo "========================="
-echo "= Enabling automount... ="
-echo "========================="
-pkg install -y automount exfat-utils fusefs-exfat fusefs-ntfs fusefs-ext2 fusefs-hfsfuse fusefs-lkl fusefs-smbnetfs dsbmd dsbmc
-echo ""
+#echo "========================="
+#echo "= Enabling automount... ="
+#echo "========================="
+#pkg install -y automount exfat-utils fusefs-exfat fusefs-ntfs fusefs-ext2 fusefs-hfsfuse fusefs-lkl fusefs-smbnetfs dsbmd dsbmc
+#echo ""
 
 ## CONFIGURES AUTOMOUNT FOR THE REGULAR DESKTOP USER
-touch /usr/local/etc/automount.conf
-echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
-echo "USER=$user" >> /usr/local/etc/automount.conf
-echo "FM='thunar'" >> /usr/local/etc/automount.conf
-echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
+#touch /usr/local/etc/automount.conf
+#echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
+#echo "USER=$user" >> /usr/local/etc/automount.conf
+#echo "FM='thunar'" >> /usr/local/etc/automount.conf
+#echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
 
 ## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
 #echo "Optimizing system parameters and firewall..."
@@ -97,11 +98,11 @@ echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
 
 
 ## SPECIAL PERMISSIONS FOR USB DRIVES AND WEBCAM
-echo "perm    /dev/da0        0666" >> /etc/devfs.conf
-echo "perm    /dev/da1        0666" >> /etc/devfs.conf
-echo "perm    /dev/da2        0666" >> /etc/devfs.conf
-echo "perm    /dev/da3        0666" >> /etc/devfs.conf
-echo ""
+#echo "perm    /dev/da0        0666" >> /etc/devfs.conf
+#echo "perm    /dev/da1        0666" >> /etc/devfs.conf
+#echo "perm    /dev/da2        0666" >> /etc/devfs.conf
+#echo "perm    /dev/da3        0666" >> /etc/devfs.conf
+#echo ""
 
 
 ## ADDS USER TO CORE GROUPS
