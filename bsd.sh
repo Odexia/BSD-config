@@ -29,36 +29,39 @@ echo "======================================"
 echo "=  Installing KDE AND CORE UTILS...  ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr sddm plasma5-plasma-desktop plasma5-sddm-kcm sudo
+pkg install -y xorg arandr sddm sudo i3 xterm thunar
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
 echo 'setxkbmap fr' >> .xinitrc
-echo 'exec ck-launch-session startplasma-x11' >> .xinitrc
+echo 'exec i3' >> .xinitrc
 
 touch /usr/home/$user/.xinitrc
 echo 'setxkbmap fr' >> /usr/home/$user/.xinitrc
-echo 'exec ck-launch-session startplasma-x11' >> /usr/home/$user/.xinitrc
+echo 'exec i3' >> /usr/home/$user/.xinitrc
 echo ""
 
+mkdir /usr/home/$user/.config/i3
+cd /usr/home/$user/.config/i3
+git fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/i3/config
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "=============================="
 echo "= Installing NVIDIA UTILS... ="
 echo "=============================="
 echo ""
-pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
-nvidia-xconfig
+pkg install -y nvidia-driver nvidia-settings nvidia-xconfig #linux-nvidia-libs
+#nvidia-xconfig
 
 
 ## ENABLES LINUX COMPAT LAYER
-echo "=================================="
-echo "= Enabling Linux compat layer... ="
-echo "=================================="
-echo ""
-kldload linux.ko
-echo ""
+##echo "=================================="
+##echo "= Enabling Linux compat layer... ="
+##echo "=================================="
+##echo ""
+##kldload linux.ko
+##echo ""
 
 
 ## INSTALLS MORE UTILS
@@ -66,8 +69,8 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y vlc firefox-esr keyd suyimazu linux-steam-utils htop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite   
-
+pkg install -y vlc firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite  #linux-steam-utils
+echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
 #echo "========================="
@@ -133,6 +136,7 @@ echo ""
 sysrc zfs_enable="YES"
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
+sysrc kld_list+=nvidia-modeset
 sysrc sddm_enable="YES" #Login manager
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
