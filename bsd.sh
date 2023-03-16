@@ -45,6 +45,7 @@ echo ""
 mkdir /usr/home/$user/.config/i3
 cd /usr/home/$user/.config/i3
 git fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/i3/config
+cd
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "=============================="
@@ -73,18 +74,18 @@ pkg install -y vlc firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
-#echo "========================="
-#echo "= Enabling automount... ="
-#echo "========================="
-#pkg install -y automount exfat-utils fusefs-exfat fusefs-ntfs fusefs-ext2 fusefs-hfsfuse fusefs-lkl fusefs-smbnetfs dsbmd dsbmc
-#echo ""
+echo "========================="
+echo "= Enabling automount... ="
+echo "========================="
+pkg install -y automount exfat-utils fusefs-exfat fusefs-ntfs fusefs-ext2 fusefs-hfsfuse fusefs-lkl fusefs-smbnetfs dsbmd dsbmc
+echo ""
 
 ## CONFIGURES AUTOMOUNT FOR THE REGULAR DESKTOP USER
-#touch /usr/local/etc/automount.conf
-#echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
-#echo "USER=$user" >> /usr/local/etc/automount.conf
-#echo "FM='thunar'" >> /usr/local/etc/automount.conf
-#echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
+touch /usr/local/etc/automount.conf
+echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
+echo "USER=$user" >> /usr/local/etc/automount.conf
+echo "FM='thunar'" >> /usr/local/etc/automount.conf
+echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
 
 ## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
 #echo "Optimizing system parameters and firewall..."
