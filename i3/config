@@ -153,3 +153,9 @@ bindsym $mod+r mode "resize"
 #bar {
 #        position top
 #}
+
+exec_always "setxkbmap -layout fr"
+exec_always --no-startup-id /home/odex/.config/polybar/launch.sh
+
+
+
