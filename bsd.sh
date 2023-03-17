@@ -34,11 +34,9 @@ pkg install -y xorg arandr sddm sudo i3 xterm thunar feh rofi dunst
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
-echo 'setxkbmap fr' >> .xinitrc
 echo 'exec i3' >> .xinitrc
 
 touch /usr/home/$user/.xinitrc
-echo 'setxkbmap fr' >> /usr/home/$user/.xinitrc
 echo 'exec i3' >> /usr/home/$user/.xinitrc
 echo ""
 
