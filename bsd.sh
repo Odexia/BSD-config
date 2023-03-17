@@ -29,7 +29,7 @@ echo "======================================"
 echo "=  Installing KDE AND CORE UTILS...  ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr sddm sudo i3 xterm thunar feh rofi
+pkg install -y xorg arandr sddm sudo i3 xterm thunar feh rofi dunst
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
@@ -43,9 +43,9 @@ echo 'exec i3' >> /usr/home/$user/.xinitrc
 echo ""
 
 mkdir /usr/home/$user/.config/i3
-cd /usr/home/$user/.config/i3
-git fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/i3/config
-cd
+mkdir /usr/home/$user/.config/polybar
+cp /usr/home/$user/BSD-config/i3/* /usr/home/$user/.config/i3/
+cp /usr/home/$user/BSD-config/polybar/* /usr/home/$user/.config/polybar/
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "=============================="
@@ -57,12 +57,12 @@ pkg install -y nvidia-driver nvidia-settings nvidia-xconfig #linux-nvidia-libs
 
 
 ## ENABLES LINUX COMPAT LAYER
-##echo "=================================="
-##echo "= Enabling Linux compat layer... ="
-##echo "=================================="
-##echo ""
-##kldload linux.ko
-##echo ""
+echo "=================================="
+echo "= Enabling Linux compat layer... ="
+echo "=================================="
+echo ""
+kldload linux.ko
+echo ""
 
 
 ## INSTALLS MORE UTILS
@@ -70,7 +70,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y vlc firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite  #linux-steam-utils
+pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite  #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -134,10 +134,10 @@ echo "==================================="
 echo "= Enabling basic services rc.conf ="
 echo "==================================="
 echo ""
-sysrc zfs_enable="YES"
+sysrc zfs_enable="YES" #Raid
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
-sysrc kld_list+=nvidia-modeset
+sysrc kld_list+=nvidia-modeset #Module Nvidia
 sysrc sddm_enable="YES" #Login manager
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
@@ -147,14 +147,6 @@ sysrc ntpd_enable="YES"
 sysrc ntpdate_enable="YES"
 sysrc syslogd_flags="-ss"
 sysrc dumpdev="NO"
-echo ""
-
-
-## CONFIGURES MORE CORE SYSTEM SERVICES
-echo "=========================================="
-echo "= Enabling additional system services... ="
-echo "=========================================="
-echo ""
 sysrc clear_tmp_enable="YES"
 sysrc sendmail_enable="NONE"
 sysrc sendmail_msp_queue_enable="NO"
