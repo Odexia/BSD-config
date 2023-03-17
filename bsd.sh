@@ -68,7 +68,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite  #linux-steam-utils
+pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite xpdf #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -137,6 +137,7 @@ sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
 sysrc kld_list+=nvidia-modeset #Module Nvidia
 sysrc sddm_enable="YES" #Login manager
+sysrc sddm_lang="fr_FR"
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
 sysrc update_motd="NO"
