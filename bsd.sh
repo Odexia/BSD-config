@@ -29,7 +29,7 @@ echo "======================================"
 echo "=  Installing KDE AND CORE UTILS...  ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr sddm sudo i3 xterm thunar
+pkg install -y xorg arandr sddm sudo i3 xterm thunar feh
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
