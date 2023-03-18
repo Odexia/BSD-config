@@ -42,16 +42,16 @@ echo ""
 
 mkdir /usr/home/$user/.config/i3
 mkdir /usr/home/$user/.config/polybar
-cp /usr/home/$user/BSD-config/i3/* /usr/home/$user/.config/i3/
-cp /usr/home/$user/BSD-config/polybar/* /usr/home/$user/.config/polybar/
+cp /root/BSD-config/i3/* /usr/home/$user/.config/i3/
+cp /root/BSD-config/polybar/* /usr/home/$user/.config/polybar/
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "=============================="
 echo "= Installing NVIDIA UTILS... ="
 echo "=============================="
 echo ""
-pkg install -y nvidia-driver nvidia-settings nvidia-xconfig #linux-nvidia-libs
-#nvidia-xconfig
+pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
+nvidia-xconfig
 
 
 ## ENABLES LINUX COMPAT LAYER
@@ -68,7 +68,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite xpdf #linux-steam-utils
+pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite xpdf webfonts #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -84,20 +84,6 @@ echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
 echo "USER=$user" >> /usr/local/etc/automount.conf
 echo "FM='thunar'" >> /usr/local/etc/automount.conf
 echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
-
-## FreeBSD SYSTEM TUNING FOR BEST DESKTOP EXPERIENCE
-#echo "Optimizing system parameters and firewall..."
-#echo ""
-#mv /etc/sysctl.conf /etc/sysctl.conf.bk
-#mv /boot/loader.conf /boot/loader.conf.bk
-#mv /etc/login.conf /etc/login.conf.bk
-#cd /etc/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/sysctl.conf
-#fetch https://raw.githubusercontent.com/Wamphyre/BSD-XFCE/main/login.conf
-#fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/devfs.rules
-#cd /boot/ && fetch https://raw.githubusercontent.com/Odexia/BSD-config/main/loader.conf
-#sysrc devfs_system_ruleset="desktop"
-#cd
-
 
 ## SPECIAL PERMISSIONS FOR USB DRIVES AND WEBCAM
 #echo "perm    /dev/da0        0666" >> /etc/devfs.conf
@@ -137,7 +123,7 @@ sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
 sysrc kld_list+=nvidia-modeset #Module Nvidia
 sysrc sddm_enable="YES" #Login manager
-sysrc sddm_lang="fr_FR"
+sysrc sddm_lang="fr_FR" #Login manager set lang FR
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
 sysrc update_motd="NO"
