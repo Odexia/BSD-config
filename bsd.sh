@@ -5,45 +5,45 @@ test $? -eq 0 || exit 1 "NEED TO BE ROOT TO RUN THIS"
 
 
 #Start message
+clear
 echo "=============================="
 echo "= Welcome to BSD base script ="
 echo "=============================="
 echo ""
 echo ; read -p "For what user ? " user;
 echo ; read -p "Desktop or laptop ? (D/L) " device;
-
 ## CHANGE FreeBSD REPOS TO LATEST
 sed -i '' 's/quarterly/latest/g' /etc/pkg/FreeBSD.conf
 
-
 ## REBUILD AND UPDATE PKG DATABASE 
+clear
 echo "========================="
 echo "= Upgrading packages... ="
 echo "========================="
 pkg update && pkg upgrade -y
 echo ""
 
-
 ## INSTALLS BASE DESKTOP AND CORE UTILS
+clear
 echo "======================================"
-echo "=  Installing KDE AND CORE UTILS...  ="
+echo "=  Installing WM AND CORE UTILS...  ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr sddm sudo i3 xterm thunar feh rofi dunst
+pkg install -y xorg arandr doas i3 alacritty thunar feh rofi dunst
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
-echo 'exec i3' >> .xinitrc
+echo 'exec awesome' >> .xinitrc
 
 touch /usr/home/$user/.xinitrc
-echo 'exec i3' >> /usr/home/$user/.xinitrc
+echo 'exec awesome' >> /usr/home/$user/.xinitrc
 echo ""
 
-mkdir /usr/home/$user/.config/i3
-mkdir /usr/home/$user/.config/polybar
-cp /root/BSD-config/i3/* /usr/home/$user/.config/i3/
-cp /root/BSD-config/polybar/* /usr/home/$user/.config/polybar/
+#mkdir /usr/home/$user/.config/i3
+#mkdir /usr/home/$user/.config/polybar
+#cp /root/BSD-config/i3/* /usr/home/$user/.config/i3/
+#cp /root/BSD-config/polybar/* /usr/home/$user/.config/polybar/
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 echo "=============================="
@@ -51,7 +51,7 @@ echo "= Installing NVIDIA UTILS... ="
 echo "=============================="
 echo ""
 pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
-nvidia-xconfig
+clear
 
 
 ## ENABLES LINUX COMPAT LAYER
@@ -68,7 +68,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite xpdf webfonts #linux-steam-utils
+pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite xpdf webfonts qjackctl #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -106,11 +106,11 @@ echo ""
 
 
 ## ADDS USER TO SUDOERS
-echo "======================="
-echo "= Adding $user to sudo ="
-echo "======================="
-echo "$user ALL=(ALL:ALL) ALL" >> /usr/local/etc/sudoers
-echo ""
+#echo "======================="
+#echo "= Adding $user to sudo ="
+#echo "======================="
+#echo "$user ALL=(ALL:ALL) ALL" >> /usr/local/etc/sudoers
+#echo ""
 
 
 ## ENABLES BASIC SYSTEM SERVICES
@@ -122,8 +122,8 @@ sysrc zfs_enable="YES" #Raid
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
 sysrc kld_list+=nvidia-modeset #Module Nvidia
-sysrc sddm_enable="YES" #Login manager
-sysrc sddm_lang="fr_FR" #Login manager set lang FR
+#sysrc sddm_enable="YES" #Login manager
+#sysrc sddm_lang="fr_FR" #Login manager set lang FR
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
 sysrc update_motd="NO"
