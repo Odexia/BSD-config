@@ -29,7 +29,7 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...  ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr doas i3 alacritty thunar feh rofi dunst
+pkg install -y xorg arandr doas awesome alacritty thunar feh rofi dunst
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
@@ -40,21 +40,26 @@ touch /usr/home/$user/.xinitrc
 echo 'exec awesome' >> /usr/home/$user/.xinitrc
 echo ""
 
+## CREATE doas.conf
+touch /usr/local/etc/doas.conf
+echo '# allow user but require password' >> /usr/local/etc/doas.conf
+echo 'permit keepenv :username' >> /usr/local/etc/doas.conf
 #mkdir /usr/home/$user/.config/i3
 #mkdir /usr/home/$user/.config/polybar
 #cp /root/BSD-config/i3/* /usr/home/$user/.config/i3/
 #cp /root/BSD-config/polybar/* /usr/home/$user/.config/polybar/
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
+clear
 echo "=============================="
 echo "= Installing NVIDIA UTILS... ="
 echo "=============================="
 echo ""
 pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
-clear
 
 
 ## ENABLES LINUX COMPAT LAYER
+clear
 echo "=================================="
 echo "= Enabling Linux compat layer... ="
 echo "=================================="
@@ -64,14 +69,16 @@ echo ""
 
 
 ## INSTALLS MORE UTILS
+clear
 echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y firefox-esr keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget atril-lite xpdf webfonts qjackctl #linux-steam-utils
+pkg install -y firefox chromium keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
+clear
 echo "========================="
 echo "= Enabling automount... ="
 echo "========================="
