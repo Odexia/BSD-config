@@ -29,7 +29,7 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...  ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr doas awesome alacritty thunar feh rofi dunst
+pkg install -y xorg arandr doas awesome alacritty thunar feh rofi dunst neovim rust rust-nightly git
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
@@ -74,7 +74,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y firefox chromium keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl #linux-steam-utils
+pkg install -y chromium keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -112,15 +112,8 @@ pw groupmod network -m $user
 echo ""
 
 
-## ADDS USER TO SUDOERS
-#echo "======================="
-#echo "= Adding $user to sudo ="
-#echo "======================="
-#echo "$user ALL=(ALL:ALL) ALL" >> /usr/local/etc/sudoers
-#echo ""
-
-
 ## ENABLES BASIC SYSTEM SERVICES
+clear
 echo "==================================="
 echo "= Enabling basic services rc.conf ="
 echo "==================================="
@@ -129,8 +122,6 @@ sysrc zfs_enable="YES" #Raid
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
 sysrc kld_list+=nvidia-modeset #Module Nvidia
-#sysrc sddm_enable="YES" #Login manager
-#sysrc sddm_lang="fr_FR" #Login manager set lang FR
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
 sysrc update_motd="NO"
@@ -148,6 +139,7 @@ echo ""
 
 
 ## Initializing FW
+clear
 echo "=========================="
 echo "= Configure firewall ... ="
 echo "=========================="
@@ -163,6 +155,7 @@ sysrc pflog_flags=""
 
 
 ## UPDATES CPU MICROCODE
+clear
 echo "============================="
 echo "= Updating CPU microcode... ="
 echo "============================="
@@ -172,6 +165,7 @@ service microcode_update start
 
 
 ## CLEAN CACHES AND AUTOREMOVES UNNECESARY FILES
+clear
 echo "======================"
 echo "= Cleaning system... ="
 echo "======================"
@@ -182,6 +176,7 @@ echo ""
 
 if [ "$device" = "L" ]
 then
+    clear
     echo "================================"
     echo "= Configuration for laptop ... ="
     echo "================================"
@@ -203,6 +198,7 @@ then
 else fi
 
 ## DONE, REBOOT
+clear
 echo "===================================="
 echo "= Installation done - Reboot in 5s ="
 echo "===================================="
