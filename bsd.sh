@@ -74,7 +74,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y chromium keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl #linux-steam-utils
+pkg install -y chromium keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl artwiz-fonts crosextrafonts-carlito-ttf nerd-fonts #linux-steam-utils
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
