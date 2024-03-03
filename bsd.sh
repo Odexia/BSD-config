@@ -20,6 +20,8 @@ clear
 echo "========================="
 echo "= Upgrading packages... ="
 echo "========================="
+freebsd-update fetch
+freebsd-update install
 pkg update && pkg upgrade -y
 echo ""
 
@@ -29,7 +31,7 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...   ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr doas wezterm feh rofi dunst git ca_root_nss
+pkg install -y xorg arandr doas wezterm feh rofi dunst git ca_root_nss #plasma5-plasma plasma5-sddm-kcm sddm
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin $HOME/bin $HOME/.cargo/bin)" >> /home/$user/.shrc
@@ -79,7 +81,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y chromium keyd suyimazu btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl artwiz-fonts crosextrafonts-carlito-ttf nerd-fonts #linux-steam-utils
+pkg install -y tor-browser btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl artwiz-fonts crosextrafonts-carlito-ttf nerd-fonts #linux-steam-utils keyd suyimazu 
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -140,6 +142,10 @@ sysrc sendmail_enable="NONE"
 sysrc sendmail_msp_queue_enable="NO"
 sysrc sendmail_outbound_enable="NO"
 sysrc sendmail_submit_enable="NO"
+#sysrc dbus_enable="YES" && service dbus start
+#sysrc sddm_enable="YES" && service sddm start
+#sysctl net.local.stream.recvspace=65536
+#sysctl net.local.stream.sendspace=65536
 echo ""
 
 
