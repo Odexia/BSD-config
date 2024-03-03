@@ -26,24 +26,29 @@ echo ""
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 clear
 echo "======================================"
-echo "=  Installing WM AND CORE UTILS...  ="
+echo "=  Installing WM AND CORE UTILS...   ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr doas awesome alacritty thunar feh rofi dunst neovim rust rust-nightly git
+pkg install -y xorg arandr doas wezterm feh rofi dunst git ca_root_nss
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin $HOME/bin $HOME/.cargo/bin)" >> /home/$user/.shrc
+.cargo/bin/cargo install leftwm
+
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
-echo 'exec awesome' >> .xinitrc
+echo 'exec leftwm' >> .xinitrc
 
 touch /usr/home/$user/.xinitrc
-echo 'exec awesome' >> /usr/home/$user/.xinitrc
+echo 'exec leftwm' >> /usr/home/$user/.xinitrc
 echo ""
 
 ## CREATE doas.conf
 touch /usr/local/etc/doas.conf
 echo '# allow user but require password' >> /usr/local/etc/doas.conf
-echo 'permit keepenv :username' >> /usr/local/etc/doas.conf
+echo 'permit keepenv '$user' as root' >> /usr/local/etc/doas.conf
 #mkdir /usr/home/$user/.config/i3
 #mkdir /usr/home/$user/.config/polybar
 #cp /root/BSD-config/i3/* /usr/home/$user/.config/i3/
