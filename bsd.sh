@@ -31,20 +31,22 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...   ="
 echo "======================================"
 echo ""
-pkg install -y xorg arandr doas wezterm feh rofi dunst git ca_root_nss #plasma5-plasma plasma5-sddm-kcm sddm
+pkg install -y xorg doas xfce
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin $HOME/bin $HOME/.cargo/bin)" >> /home/$user/.shrc
-.cargo/bin/cargo install leftwm
+
 
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
 cd
 touch .xinitrc
-echo 'exec leftwm' >> .xinitrc
+cp /usr/local/etc/xdg/xfce4/xinitrc ~/.xinitrc
+ln -sf ~/.xinitrc ~/.xsession
 
 touch /usr/home/$user/.xinitrc
-echo 'exec leftwm' >> /usr/home/$user/.xinitrc
+cp /usr/local/etc/xdg/xfce4/xinitrc /usr/home/$user/.xinitrc
+ln -sf /usr/home/$user/.xinitrc /usr/home/$user/.xsession
 echo ""
 
 ## CREATE doas.conf
