@@ -31,7 +31,7 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...   ="
 echo "======================================"
 echo ""
-pkg install -y xorg doas xfce
+pkg install -y xorg doas xfce xfce4-pulseaudio-plugin 
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin $HOME/bin $HOME/.cargo/bin)" >> /home/$user/.shrc
@@ -53,10 +53,6 @@ echo ""
 touch /usr/local/etc/doas.conf
 echo '# allow user but require password' >> /usr/local/etc/doas.conf
 echo 'permit keepenv '$user' as root' >> /usr/local/etc/doas.conf
-#mkdir /usr/home/$user/.config/i3
-#mkdir /usr/home/$user/.config/polybar
-#cp /root/BSD-config/i3/* /usr/home/$user/.config/i3/
-#cp /root/BSD-config/polybar/* /usr/home/$user/.config/polybar/
 
 ## INSTALLS BASE DESKTOP AND CORE UTILS
 clear
@@ -64,18 +60,8 @@ echo "=============================="
 echo "= Installing NVIDIA UTILS... ="
 echo "=============================="
 echo ""
-pkg install -y nvidia-driver nvidia-settings nvidia-xconfig linux-nvidia-libs
-
-
-## ENABLES LINUX COMPAT LAYER
-clear
-echo "=================================="
-echo "= Enabling Linux compat layer... ="
-echo "=================================="
-echo ""
-kldload linux.ko
-echo ""
-
+pkg install -y nvidia-driver nvidia-settings nvidia-xconfig
+nvidia-xconfig
 
 ## INSTALLS MORE UTILS
 clear
@@ -83,7 +69,7 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y tor-browser btop xarchiver 7-zip v4l-utils v4l_compat sctd wget xpdf webfonts qjackctl artwiz-fonts crosextrafonts-carlito-ttf nerd-fonts #linux-steam-utils keyd suyimazu 
+pkg install -y firefox-esr tor-browser btop xarchiver 7-zip sctd wget xpdf webfonts qjackctl artwiz-fonts nerd-fonts #linux-steam-utils keyd suyimazu 
 echo "perm    devstat        0444" >> /etc/devfs.conf
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
@@ -130,7 +116,8 @@ echo ""
 sysrc zfs_enable="YES" #Raid
 sysrc moused_enable="YES"
 sysrc dbus_enable="YES"
-sysrc kld_list+=nvidia-modeset #Module Nvidia
+sysrc sndiod_enable="YES"
+sysrc kld_list+=nvidia-modeset nvidia fusefs linux linux64 #Module Nvidia
 sysrc linux_enable="YES" #Kernel linux load
 sysrc dsbmd_enable="YES" #Automount media
 sysrc update_motd="NO"
@@ -172,7 +159,7 @@ clear
 echo "============================="
 echo "= Updating CPU microcode... ="
 echo "============================="
-pkg install -y devcpu-data
+pkg install -y cpu-microcode-intel
 sysrc microcode_update_enable="YES"
 service microcode_update start
 
