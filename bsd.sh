@@ -31,23 +31,14 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...   ="
 echo "======================================"
 echo ""
-pkg install -y xorg doas xfce xfce4-pulseaudio-plugin 
+pkg install --quiet --yes kde5 plasma5-sddm-kcm sddm xorg doas
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin $HOME/bin $HOME/.cargo/bin)" >> /home/$user/.shrc
+echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin /home/'$user'/.cargo/bin)" >> /home/$user/.shrc
 
 
 
 ## CREATES .xinitrc SCRIPT FOR A REGULAR DESKTOP USER
-cd
-touch .xinitrc
-cp /usr/local/etc/xdg/xfce4/xinitrc ~/.xinitrc
-ln -sf ~/.xinitrc ~/.xsession
-
-touch /usr/home/$user/.xinitrc
-cp /usr/local/etc/xdg/xfce4/xinitrc /usr/home/$user/.xinitrc
-ln -sf /usr/home/$user/.xinitrc /usr/home/$user/.xsession
-echo ""
 
 ## CREATE doas.conf
 touch /usr/local/etc/doas.conf
@@ -69,8 +60,8 @@ echo "============================"
 echo "= Installing MORE UTILS... ="
 echo "============================"
 echo ""
-pkg install -y firefox-esr tor-browser btop xarchiver 7-zip sctd wget xpdf webfonts qjackctl artwiz-fonts nerd-fonts #linux-steam-utils keyd suyimazu 
-echo "perm    devstat        0444" >> /etc/devfs.conf
+pkg install -y firefox-esr tor-browser btop xarchiver 7-zip sctd wget xpdf webfonts qjackctl artwiz-fonts nerd-fonts #linux-steam-utils linux-nvidia-libs keyd suyimazu 
+
 
 ## INSTALLS AUTOMOUNT AND FILESYSTEM SUPPORT
 clear
@@ -81,18 +72,19 @@ pkg install -y automount exfat-utils fusefs-exfat fusefs-ntfs fusefs-ext2 fusefs
 echo ""
 
 ## CONFIGURES AUTOMOUNT FOR THE REGULAR DESKTOP USER
-touch /usr/local/etc/automount.conf
-echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
-echo "USER=$user" >> /usr/local/etc/automount.conf
-echo "FM='thunar'" >> /usr/local/etc/automount.conf
-echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
+#touch /usr/local/etc/automount.conf
+#echo "USERUMOUNT=YES" >> /usr/local/etc/automount.conf
+#echo "USER=$user" >> /usr/local/etc/automount.conf
+#echo "FM='thunar'" >> /usr/local/etc/automount.conf
+#echo "NICENAMES=YES" >> /usr/local/etc/automount.conf
 
 ## SPECIAL PERMISSIONS FOR USB DRIVES AND WEBCAM
-#echo "perm    /dev/da0        0666" >> /etc/devfs.conf
-#echo "perm    /dev/da1        0666" >> /etc/devfs.conf
-#echo "perm    /dev/da2        0666" >> /etc/devfs.conf
-#echo "perm    /dev/da3        0666" >> /etc/devfs.conf
-#echo ""
+echo "perm    devstat         0444" >> /etc/devfs.conf
+echo "perm    /dev/da0        0666" >> /etc/devfs.conf
+echo "perm    /dev/da1        0666" >> /etc/devfs.conf
+echo "perm    /dev/da2        0666" >> /etc/devfs.conf
+echo "perm    /dev/da3        0666" >> /etc/devfs.conf
+echo ""
 
 
 ## ADDS USER TO CORE GROUPS
@@ -119,7 +111,7 @@ sysrc dbus_enable="YES"
 sysrc sndiod_enable="YES"
 sysrc kld_list+=nvidia-modeset  #Module Nvidia
 sysrc kld_list+=nvidia #Module Nvidia
-sysrc kld_list+=fusefs  #Module Nvidia
+#sysrc kld_list+=fusefs  #Module Nvidia
 sysrc kld_list+=linux  #Module Nvidia
 sysrc kld_list+=linux64 #Module Nvidia
 sysrc linux_enable="YES" #Kernel linux load
@@ -135,10 +127,9 @@ sysrc sendmail_enable="NONE"
 sysrc sendmail_msp_queue_enable="NO"
 sysrc sendmail_outbound_enable="NO"
 sysrc sendmail_submit_enable="NO"
-#sysrc dbus_enable="YES" && service dbus start
-#sysrc sddm_enable="YES" && service sddm start
-#sysctl net.local.stream.recvspace=65536
-#sysctl net.local.stream.sendspace=65536
+sysrc sddm_enable="YES"
+sysctl net.local.stream.recvspace=65536
+sysctl net.local.stream.sendspace=65536
 echo ""
 
 
