@@ -31,7 +31,7 @@ echo "======================================"
 echo "=  Installing WM AND CORE UTILS...   ="
 echo "======================================"
 echo ""
-pkg install --quiet --yes kde5 plasma5-sddm-kcm sddm xorg doas
+pkg install -y kde5 plasma5-sddm-kcm sddm xorg doas
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo "set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin /home/'$user'/.cargo/bin)" >> /home/$user/.shrc
